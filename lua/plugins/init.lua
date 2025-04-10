@@ -1,0 +1,36 @@
+local modules = {
+  'cyberdream',
+  'mini',
+  'lsp',
+  'lualine',
+  'dap',
+  'which-key',
+  'treesitter',
+  'telescope',
+  'flash',
+  'snacks',
+  'fzf',
+  'nvim-lint',
+  'conform',
+  'guess-indent',
+  'lazygit',
+  'gitsigns',
+  'todo-comments',
+  'trouble',
+  'autotag',
+  'substitute',
+  'spider',
+  'yanky',
+  'hlchunk',
+  'view',
+  'neogit',
+  'aerial',
+  'resession',
+  'noice',
+  'neocodeium',
+  'zoxide',
+}
+
+for _, module in ipairs (modules) do
+  require ('plugins.' .. module)
+end

@@ -44,18 +44,10 @@ end)
 --
 now (function ()
   add ({
-    source = 'saghen/blink.compat',
-    checkout = 'main',
-  })
-
-  add ({
     source = 'saghen/blink.cmp',
     depends = {
       'rafamadriz/friendly-snippets',
       'moyiz/blink-emoji.nvim',
-      'mtoohey31/cmp-fish',
-      'chrisgrieser/cmp-nerdfont',
-      'brenoprata10/nvim-highlight-colors',
       'Kaiser-Yang/blink-cmp-git',
     },
     checkout = 'v1.1.0',
@@ -142,13 +134,7 @@ now (function ()
           name = 'Emoji',
           score_offset = 15,
         },
-        fish = {
-          name = 'fish',
-          module = 'blink.compat.source',
         },
-        nerdfont = {
-          name = 'nerdfont',
-          module = 'blink.compat.source',
         },
       },
     },

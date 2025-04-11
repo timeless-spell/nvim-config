@@ -39,7 +39,7 @@ later (function ()
   telescope.setup ({
     defaults = {
       prompt_prefix = '󰍉 ',
-      selection_caret = '󰜴',
+      selection_caret = '󰜴 ',
       entry_prefix = ' ',
       multi_icon = ' ',
       mappings = {

@@ -9,21 +9,21 @@ later (function ()
 
   map ('s', function ()
     require ('flash').jump ()
-  end, 'Flash', { 'n', 'x', 'o' })
+  end, 'Jump [Flash]', { 'n', 'x', 'o' })
 
   map ('S', function ()
     require ('flash').treesitter ()
-  end, 'Flash Treesitter', { 'n', 'x', 'o' })
+  end, 'Treesitter [Flash]', { 'n', 'x', 'o' })
 
   map ('r', function ()
     require ('flash').remote ()
-  end, 'Remote Flash', 'o')
+  end, 'Remote [Flash]', 'o')
 
   map ('R', function ()
     require ('flash').treesitter_search ()
-  end, 'Treesitter Search', { 'o', 'x' })
+  end, 'Treesitter Search [Flash]', { 'o', 'x' })
 
   map ('<c-s>', function ()
     require ('flash').toggle ()
-  end, 'Toggle Flash Search', { 'c' })
+  end, 'Toggle Search [Flash]', { 'c' })
 end)

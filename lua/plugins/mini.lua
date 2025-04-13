@@ -1,6 +1,6 @@
 local map = require ('util').map
 
-local now, later = MiniDeps.now, MiniDeps.later
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 --
 -- [[ Starter ]]
@@ -128,7 +128,17 @@ end)
 -- [[ Comment ]]
 --
 later (function ()
-  require ('mini.comment').setup ()
+  add ({
+    source = 'JoosepAlviste/nvim-ts-context-commentstring',
+  })
+
+  require ('mini.comment').setup ({
+    options = {
+      custom_commentstring = function ()
+        return require ('ts_context_commentstring').calculate_commentstring () or vim.bo.commentstring
+      end,
+    },
+  })
 end)
 
 --

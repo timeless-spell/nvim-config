@@ -22,6 +22,9 @@ later (function ()
       -- },
       'stylua',
       'selene',
+      'jdtls',
+      'java-debug-adapter',
+      'java-test',
     },
 
     -- if set to true this will check each tool for updates. If updates

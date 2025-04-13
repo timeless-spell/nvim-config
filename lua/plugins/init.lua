@@ -11,6 +11,7 @@ local modules = {
   'snacks',
   'dap',
   'lazydev',
+  'jdtls',
   'fzf',
   'lint',
   'conform',

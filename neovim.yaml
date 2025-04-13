@@ -1,0 +1,8 @@
+base: luajit
+globals:
+  vim:
+    any: true
+  MiniDeps:
+    any: true
+  Snacks:
+    any: true

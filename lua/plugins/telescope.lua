@@ -3,31 +3,29 @@ local map = require ('util').map
 local add, later = MiniDeps.add, MiniDeps.later
 
 later (function ()
-  local function build_fzf_native ()
-    vim.notify ('Building FZF Native', vim.log.levels.INFO)
-    local fzf_native_path = vim.fn.stdpath ('data') .. '/site/pack/deps/opt/telescope-fzf-native.nvim'
-    local obj = vim.system ({ 'make' }, { cwd = fzf_native_path }):wait ()
-    if obj.code == 0 then
-      vim.notify ('Done succesfully', vim.log.levels.INFO)
-    else
-      vim.notify ('Build failed', vim.log.levels.ERROR)
-    end
-  end
-
   add ({
     source = 'nvim-telescope/telescope.nvim',
     checkout = '0.1.x',
     depends = {
       'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-fzf-native.nvim',
       -- 'nvim-telescope/telescope-ui-select.nvim', -- NOTE: Prefer Snacks.picker.select()
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-tree/nvim-web-devicons',
       'jvgrootveld/telescope-zoxide',
     },
+  })
+
+  add ({
+    source = 'nvim-telescope/telescope-fzf-native.nvim',
     hooks = {
-      post_install = build_fzf_native,
-      post_checkout = build_fzf_native,
+      post_install = function (args)
+        local make = vim.system ({ 'make' }, { cwd = args.path, text = true }):wait ()
+        if make.code == 1 then
+          vim.notify (make.stderr, vim.log.levels.ERROR)
+        else
+          vim.notify ('Fzf Native Succesful build', vim.log.levels.INFO)
+        end
+      end,
     },
   })
 

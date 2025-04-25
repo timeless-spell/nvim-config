@@ -12,7 +12,7 @@ now (function ()
     dashboard = { enabled = false },
     indent = { enabled = false },
     input = { enabled = true },
-    notifier = { enabled = true },
+    notifier = { enabled = true, timeout = 3000 },
     quickfile = { enabled = true },
     scroll = { enabled = false },
     statuscolumn = { enabled = true },

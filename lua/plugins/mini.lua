@@ -18,7 +18,7 @@ now (function ()
     -- Search
     --
     {
-      action = 'lua require ("telescope").extensions.zoxide.zoxide({})',
+      action = 'lua require ("telescope").extensions.zoxide.list()',
       name = 'Change Directory',
       section = section.search,
     },

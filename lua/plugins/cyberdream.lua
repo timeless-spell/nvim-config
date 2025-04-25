@@ -8,7 +8,7 @@ now (function ()
   require ('cyberdream').setup ({
     variant = 'dark',
     transparent = true,
-    cache = true,
+    cache = false,
   })
 
   vim.cmd.colorscheme ('cyberdream')

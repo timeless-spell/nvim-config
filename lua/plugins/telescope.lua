@@ -23,6 +23,7 @@ later (function ()
       -- 'nvim-telescope/telescope-ui-select.nvim', -- NOTE: Prefer Snacks.picker.select()
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-tree/nvim-web-devicons',
+      'jvgrootveld/telescope-zoxide',
     },
     hooks = {
       post_install = build_fzf_native,
@@ -35,6 +36,7 @@ later (function ()
   local themes = require ('telescope.themes')
   local utils = require ('telescope.utils')
   local actions = require ('telescope.actions.')
+  local z_utils = require ('telescope._extensions.zoxide.utils')
 
   telescope.setup ({
     defaults = {
@@ -61,6 +63,16 @@ later (function ()
           hidden = {
             file_browser = true,
             folder_browser = true,
+          },
+        },
+        ['zoxide'] = {
+          mappings = {
+            ['<C-b>'] = {
+              keepinsert = true,
+              action = function (selection)
+                require ('telescope').extensions.file_browser.file_browser ({ cwd = selection.path })
+              end,
+            },
           },
         },
         -- ['ui-select'] = {

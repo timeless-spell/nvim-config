@@ -71,6 +71,7 @@ later (function ()
                 require ('telescope').extensions.file_browser.file_browser ({ cwd = selection.path })
               end,
             },
+            ['<C-q>'] = { action = z_utils.create_basic_command ('split') },
           },
         },
         -- ['ui-select'] = {
@@ -221,4 +222,8 @@ later (function ()
       layout_config = { width = 0.95, height = 0.95, preview_width = 0.6 },
     })
   end, 'Search Files ([L]azy)')
+
+  map ('<leader>tz', function ()
+    require ('telescope').extensions.zoxide.list ()
+  end, 'Zoxide [Telescope]')
 end)

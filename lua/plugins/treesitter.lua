@@ -31,7 +31,6 @@ later (function ()
     highlight = {
       enable = true,
     },
-    indent = { enable = true, disable = { 'ruby' } },
   })
 
   require ('treesitter-context').setup ()

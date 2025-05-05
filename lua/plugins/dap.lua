@@ -61,10 +61,39 @@ later (function ()
   vim.api.nvim_create_user_command ('DAPUIfloat', function ()
     dapui.float_element ()
   end, {})
+  dap.adapters.local_lua = {
+    type = 'executable',
+    command = 'node',
+    args = {
+      vim.env.HOME .. '/local/local-lua-debugger-vscode/extension/debugAdapter.js',
+    },
+    enrich_config = function (config, on_config)
+      if not config['extensionPath'] then
+        local c = vim.deepcopy (config)
+        c.extensionPath = vim.env.HOME .. '/local/local-lua-debugger-vscode'
+        on_config (c)
+      else
+        on_config (config)
+      end
+    end,
+  }
 
   vim.api.nvim_create_user_command ('DAPUIeval', function ()
     dapui.eval (nil, { enter = true })
   end, {})
+  dap.configurations.lua = {
+    {
+      name = 'Current file (local-lua-dbg, lua)',
+      type = 'local_lua',
+      request = 'launch',
+      cwd = '${workspaceFolder}',
+      program = {
+        lua = 'lua5.1',
+        file = '${file}',
+      },
+      args = {},
+    },
+  }
 
   dap.configurations.java = {
     {

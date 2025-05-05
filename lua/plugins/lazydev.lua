@@ -5,6 +5,10 @@ later (function ()
     source = 'folke/lazydev.nvim',
   })
 
+  add ({
+    source = 'Bilal2453/luvit-meta',
+  })
+
   require ('lazydev').setup ({
     library = {
       { path = '${3rd}/luv/library', words = { 'vim%.uv' } },

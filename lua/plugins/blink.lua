@@ -7,7 +7,6 @@ now (function ()
       'rafamadriz/friendly-snippets',
       'MahanRahmati/blink-nerdfont.nvim',
       'moyiz/blink-emoji.nvim',
-      'mikavilpas/blink-ripgrep.nvim',
       'Kaiser-Yang/blink-cmp-git',
       'brenoprata10/nvim-highlight-colors',
     },
@@ -84,7 +83,7 @@ now (function ()
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'nerdfont', 'emoji', 'ripgrep', 'git', 'lazydev' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'nerdfont', 'emoji', 'git', 'lazydev' },
       providers = {
         nerdfont = {
           module = 'blink-nerdfont',
@@ -97,21 +96,6 @@ now (function ()
           name = 'Emoji',
           score_offset = 15,
           opts = { insert = true },
-        },
-        ripgrep = {
-          module = 'blink-ripgrep',
-          name = 'Ripgrep',
-          ---@module "blink-ripgrep"
-          ---@type blink-ripgrep.Options
-          opts = {},
-          transform_items = function (_, items)
-            for _, item in ipairs (items) do
-              item.labelDetails = {
-                description = '(rg)',
-              }
-            end
-            return items
-          end,
         },
         git = {
           module = 'blink-cmp-git',

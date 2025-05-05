@@ -38,10 +38,16 @@ later (function ()
 
   telescope.setup ({
     defaults = {
+      layout_config = {
+        horizontal = {
+          prompt_position = 'top',
+        },
+      },
       prompt_prefix = '󰍉 ',
       selection_caret = '󰜴 ',
       entry_prefix = ' ',
       multi_icon = ' ',
+      border = false,
       mappings = {
         i = {
           ['<c-down>'] = actions.cycle_history_next,

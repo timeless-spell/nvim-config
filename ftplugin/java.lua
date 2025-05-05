@@ -23,7 +23,7 @@ local workspace_dir = vim.env.HOME .. '/.cache/jdtls/workspace' .. project_name
 -- JDTLS config
 local config = {
   cmd = {
-    '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java',
+    'java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',

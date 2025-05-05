@@ -10,7 +10,7 @@ now (function ()
       'Kaiser-Yang/blink-cmp-git',
       'brenoprata10/nvim-highlight-colors',
     },
-    checkout = 'v1.1.0',
+    checkout = 'v1.2.0',
   })
 
   require ('nvim-highlight-colors').setup ()

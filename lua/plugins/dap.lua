@@ -13,8 +13,10 @@ later (function ()
   })
 
   local dap, dapui = require ('dap'), require ('dapui')
+  local dap_virtual_text = require ('nvim-dap-virtual-text')
 
   dapui.setup ()
+  dap_virtual_text.setup ()
 
   dap.listeners.after.event_initialized['dapui_config'] = dapui.open
   dap.listeners.before.event_terminated['dapui_config'] = dapui.close

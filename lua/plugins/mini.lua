@@ -8,34 +8,29 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 now (function ()
   local starter = require ('mini.starter')
 
-  local section = {
-    resession = ' Resession ',
-    neovim = ' Neovim ',
-    search = ' Search ',
-  }
   local items = {
     --
     -- Search
     --
     {
-      action = 'lua require ("telescope").extensions.zoxide.list()',
-      name = 'Change Directory',
-      section = section.search,
-    },
-    {
-      action = 'lua require ("telescope.builtin").find_files ({})',
+      action = 'lua require ("telescope.builtin").find_files ({previewer=false,hidden=true})',
       name = 'Search Files',
-      section = section.search,
+      section = 'Search',
     },
     {
       action = 'lua require ("telescope.builtin").live_grep ({})',
       name = 'Find Text',
-      section = section.search,
+      section = 'Search',
     },
     {
-      action = 'lua require ("telescope.builtin").oldfiles ({})',
+      action = 'lua require ("telescope.builtin").oldfiles ({previewer=false})',
       name = 'Recent Files',
-      section = section.search,
+      section = 'Search',
+    },
+    {
+      action = 'lua require ("telescope").extensions.zoxide.list({previewer=false})',
+      name = 'Change Directory',
+      section = 'Search',
     },
     --
     -- Resession
@@ -43,7 +38,15 @@ now (function ()
     {
       action = 'lua require ("resession").load ()',
       name = 'Load Session',
-      section = section.resession,
+      section = 'Resession',
+    },
+    --
+    -- neovim
+    --
+    {
+      action = 'lua require ("telescope.builtin").find_files ({cwd=vim.fn.stdpath("config"),previewer=false})',
+      name = 'Config',
+      section = 'Neovim',
     },
   }
 
@@ -51,10 +54,10 @@ now (function ()
     header = " _  _                 _\n| \\| | ___  ___ __ __(_) _ __  \n| .  |/ -_)/ _ \\\\ V /| || '  \\ \n|_|\\_|\\___|\\___/ \\_/ |_||_|_|_|\n",
     items = items,
     content_hooks = {
-      starter.gen_hook.adding_bullet ('󱁺 \t'),
+      starter.gen_hook.adding_bullet ('󱁺 '),
       starter.gen_hook.aligning ('center', 'top'),
     },
-    footer = '\t\tᶻ 𝗓 𐰁 .ᐟ',
+    footer = '\tᶻ 𝗓 𐰁 .ᐟ',
   })
 
   map ('<leader>ms', starter.open, 'Starter [Mini]')

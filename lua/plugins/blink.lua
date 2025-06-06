@@ -1,16 +1,21 @@
-local add, now = MiniDeps.add, MiniDeps.now
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
-now (function ()
+--
+-- blink.cmp
+-- :h blink-cmp.txt
+-- Completion plugin with support for LSPs, cmdline, signature help, and snippets.
+-- https://github.com/saghen/blink.cmp
+--
+later (function ()
   add ({
     source = 'saghen/blink.cmp',
     depends = {
-      'rafamadriz/friendly-snippets',
       'MahanRahmati/blink-nerdfont.nvim',
       'moyiz/blink-emoji.nvim',
       'Kaiser-Yang/blink-cmp-git',
       'brenoprata10/nvim-highlight-colors',
     },
-    checkout = 'v1.2.0',
+    checkout = 'v1.3.1',
   })
 
   require ('nvim-highlight-colors').setup ()

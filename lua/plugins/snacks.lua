@@ -1,8 +1,13 @@
 local map = require ('util').map
 
-local add, now = MiniDeps.add, MiniDeps.now
+local add, later = MiniDeps.add, MiniDeps.later
 
-now (function ()
+later (function ()
+  --
+  -- Snacks.nvim
+  -- :h snacks-<module>
+  -- https://github.com/folke/snacks.nvim
+  --
   add ({
     source = 'folke/snacks.nvim',
   })
@@ -10,14 +15,9 @@ now (function ()
   require ('snacks').setup ({
     bigfile = { enabled = true },
     dashboard = { enabled = false },
+    explorer = { enabled = true },
     indent = { enabled = false },
     input = { enabled = true },
-    notifier = { enabled = true, timeout = 3000 },
-    quickfile = { enabled = true },
-    scroll = { enabled = false },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
-    explorer = { enabled = true },
     picker = {
       win = {
         input = {
@@ -55,6 +55,20 @@ now (function ()
             },
           },
         },
+      },
+    },
+    notifier = { enabled = true, timeout = 3000 },
+    quickfile = { enabled = true },
+    scope = { enabled = true },
+    scroll = { enabled = false },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
+    styles = {
+      notification = {
+        border = 'solid',
+      },
+      input = {
+        border = 'top',
       },
     },
   })

@@ -1,26 +1,38 @@
+local map = require ('util').map
+
+--
+-- nvim-jdtls
+--
 local jdtls = require ('jdtls')
 local jdtls_dap = require ('jdtls.dap')
-local mason = require ('mason-registry')
 
--- JDTLS install path
-local jdtls_path = mason.get_package ('jdtls'):get_install_path ()
-local equinox_launcher_path = vim.fn.glob (jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar')
-local path_to_config = jdtls_path .. '/config_linux'
-local lombok_path = jdtls_path .. '/lombok.jar'
+--
+-- JDTLS
+--
+local jdtls_path = vim.env.HOME .. '/local/java/eclipse.jdt.ls'
+local jdtls_plugin = vim.fn.glob (jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar')
+local config_linux = jdtls_path .. '/config_linux'
 
--- Debug adapter and test path
-local java_debug_path = mason.get_package ('java-debug-adapter'):get_install_path ()
-local java_test_path = mason.get_package ('java-test'):get_install_path ()
+--
+-- Lombok
+--
+local lombok = jdtls_path .. '/lombok.jar'
+
+--
+-- Debug and test
+--
+local java_debug = vim.fn.glob (vim.env.HOME .. '/local/java/java-debug/com.microsoft.java.debug.plugin-*.jar', true)
+local java_test = vim.fn.glob (vim.env.HOME .. '/local/java/java-test/com.microsoft.java.test.plugin-*.jar', true)
+
 local bundles = {
-  vim.fn.glob (java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'),
+  java_debug,
 }
-vim.list_extend (bundles, vim.split (vim.fn.glob (java_test_path .. '/extension/server/*.jar'), '\n'))
+vim.list_extend (bundles, vim.split (java_test, '\n'))
 
 -- Get current working project name
 local project_name = vim.fn.fnamemodify (vim.fn.getcwd (), ':p:h:t')
 local workspace_dir = vim.env.HOME .. '/.cache/jdtls/workspace' .. project_name
 
--- JDTLS config
 local config = {
   cmd = {
     'java',
@@ -29,49 +41,39 @@ local config = {
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=true',
     '-Dlog.level=ALL',
-    '-javaagent:' .. lombok_path,
+    '-javaagent:' .. lombok,
     '-Xmx4g',
     '--add-modules=ALL-SYSTEM',
     '--add-opens',
     'java.base/java.util=ALL-UNNAMED',
     '--add-opens',
     'java.base/java.lang=ALL-UNNAMED',
-
-    -- Eclipse jdtls location
     '-jar',
-    equinox_launcher_path,
+    jdtls_plugin,
     '-configuration',
-    path_to_config,
+    config_linux,
     '-data',
     workspace_dir,
   },
-  root_dir = vim.fs.root (0, { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }),
-  on_attach = function (_, bufnr)
-    jdtls.setup_dap ({ hotcodereplace = 'auto' })
-    jdtls_dap.setup_dap_main_class_configs ()
-
-    local map = vim.keymap.set
-    map ('n', '<leader>jev', "<cmd>lua require('jdtls').extract_variable()<cr>", { desc = '[JDTLS] Extract variable' })
-    map ('n', '<leader>joi', "<cmd>lua require('jdtls').organize_imports()<cr>", { desc = '[JDTLS] Extract variable' })
-  end,
+  root_dir = vim.fs.root (0, { '.git', 'mvnw', 'pom.xml', 'build.gradle' }),
   settings = {
     java = {
-      home = '/usr/lib/jvm/temurin-21-jdk-amd64',
+      home = vim.env.HOME .. '/.local/share/mise/installs/java/temurin-21',
       eclipse = { downloadSources = true },
       configuration = {
         updateBuildConfiguration = 'interactive',
         runtimes = {
-          {
-            name = 'JavaSE-11',
-            path = '/usr/lib/jvm/temurin-11-jdk-amd64',
-          },
+          -- {
+          --   name = 'JavaSE-11',
+          --   path = '/usr/lib/jvm/temurin-11-jdk-amd64',
+          -- },
           {
             name = 'JavaSE-17',
-            path = '/usr/lib/jvm/temurin-17-jdk-amd64',
+            path = vim.env.HOME .. '/.local/share/mise/installs/java/temurin-17',
           },
           {
             name = 'JavaSE-21',
-            path = '/usr/lib/jvm/temurin-21-jdk-amd64',
+            path = vim.env.HOME .. '/.local/share/mise/installs/java/temurin-21',
           },
         },
       },
@@ -121,5 +123,19 @@ local config = {
     extendedClientCapabilities = jdtls.extendedClientCapabilities,
   },
 }
+
+config['on_attach'] = function (client, bufnr)
+  jdtls.setup_dap ({ hotcodereplace = 'auto' })
+  jdtls_dap.setup_dap_main_class_configs ()
+
+  map ('<leader>jo', "<cmd>lua require('jdtls').organize_imports()<cr>", '[JDTLS] Organize Imports')
+  map ('<leader>je', "<cmd>lua require('jdtls').extract_variable()<cr>", '[JDTLS] Extract Variable')
+  map ('<leader>je', "<cmd>lua require('jdtls').extract_variable(true)<cr>", '[JDTLS] Extract Variable', 'v')
+  map ('<leader>jE', "<cmd>lua require('jdtls').extract_constant()<cr>", '[JDTLS] Extract Constant')
+  map ('<leader>jE', "<cmd>lua require('jdtls').extract_constant(true)<cr>", '[JDTLS] Extract Constant', 'v')
+  map ('<leader>jM', "<cmd>lua require('jdtls').extract_method(true)<cr>", '[JDTLS] Extract Method', 'v')
+  map ('<leader>jt', "<cmd>lua require('jdtls').test_class()<cr>", '[JDTLS] Test Class')
+  map ('<leader>jt', "<cmd>lua require('jdtls').test_nearest_method()<cr>", '[JDTLS] Test Nearest Method')
+end
 
 jdtls.start_or_attach (config)

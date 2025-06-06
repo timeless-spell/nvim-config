@@ -1,6 +1,6 @@
 local map = require ('util').map
 
-local add, later = MiniDeps.add, MiniDeps.later
+local add, later, now = MiniDeps.add, MiniDeps.later, MiniDeps.now
 
 later (function ()
   add ({
@@ -8,23 +8,22 @@ later (function ()
     checkout = '0.1.x',
     depends = {
       'nvim-lua/plenary.nvim',
-      -- 'nvim-telescope/telescope-ui-select.nvim', -- NOTE: Prefer Snacks.picker.select()
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-tree/nvim-web-devicons',
       'jvgrootveld/telescope-zoxide',
+      'nvim-telescope/telescope-fzf-native.nvim',
     },
-  })
-
-  add ({
-    source = 'nvim-telescope/telescope-fzf-native.nvim',
     hooks = {
-      post_install = function (args)
-        local make = vim.system ({ 'make' }, { cwd = args.path, text = true }):wait ()
-        if make.code == 1 then
-          vim.notify (make.stderr, vim.log.levels.ERROR)
-        else
-          vim.notify ('Fzf Native Succesful build', vim.log.levels.INFO)
-        end
+      post_checkout = function (args)
+        vim.system ({ 'make' }, {
+          cwd = vim.fn.stdpath ('data') .. '/site/pack/deps/opt/telescope-fzf-native.nvim',
+        }, function (obj)
+          if obj.code ~= 0 then
+            return
+          else
+            vim.print ('Intalled correctly...')
+          end
+        end)
       end,
     },
   })
@@ -40,7 +39,7 @@ later (function ()
     defaults = {
       layout_config = {
         horizontal = {
-          prompt_position = 'top',
+          prompt_position = 'bottom',
         },
       },
       prompt_prefix = '󰍉 ',
@@ -80,15 +79,11 @@ later (function ()
             ['<C-q>'] = { action = z_utils.create_basic_command ('split') },
           },
         },
-        -- ['ui-select'] = {
-        -- theme = themes.get_dropdown (),
-        -- },
       },
     },
   })
 
-  telescope.load_extension ('fzf')
-  -- telescope.load_extension ('ui-select')
+  pcall (telescope.load_extension, 'fzf')
   telescope.load_extension ('file_browser')
 
   -- [[ Custom Telescope keymaps ]]

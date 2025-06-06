@@ -26,6 +26,12 @@ later (function ()
       'vimdoc',
       'fish',
       'regex',
+      'java',
+      'xml',
+      'json',
+      'jsonc',
+      'yaml',
+      'toml',
     },
     auto_install = true,
     highlight = {

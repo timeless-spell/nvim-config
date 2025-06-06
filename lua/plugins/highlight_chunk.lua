@@ -5,13 +5,8 @@ later (function ()
     source = 'shellRaining/hlchunk.nvim',
   })
 
-  require ('hlchunk').setup ({
-    chunk = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
+  local chunk = require ('hlchunk')
+  chunk.setup ({
     blank = {
       enable = true,
       chars = {
@@ -21,6 +16,12 @@ later (function ()
         { bg = vim.fn.synIDattr (vim.fn.synIDtrans (vim.fn.hlID ('cursorline')), 'bg', 'gui') },
         { bg = '', fg = '' },
       },
+    },
+    line_num = {
+      enable = true,
+      style = '#df6dfc',
+      priority = 10,
+      use_treesitter = false,
     },
   })
 end)

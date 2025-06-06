@@ -28,7 +28,9 @@ vim.diagnostic.config ({
   },
 })
 
--- [[ Diagnostic specific keymaps ]]
+--
+-- Diagnostic specific keymaps
+--
 map ('<leader>dl', vim.diagnostic.setloclist, 'Open diagnostic [L]ocation list')
 map ('<leader>dq', vim.diagnostic.setqflist, 'Open diagnostic [Q]uickfix list')
 map ('<leader>dp', vim.diagnostic.get_prev, 'Open diagnostic Previous Diagnostic')

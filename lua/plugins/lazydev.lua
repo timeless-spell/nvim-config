@@ -12,7 +12,6 @@ later (function ()
   require ('lazydev').setup ({
     library = {
       { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      { 'nvim-dap-ui' },
       { 'blink.cmp.types' },
     },
     integrations = {

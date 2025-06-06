@@ -10,7 +10,8 @@ now (function ()
       theme = 'auto',
     },
     sections = {
-      lualine_x = { 'lsp_status' },
+      lualine_c = { 'filename', 'aerial' },
+      lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype' },
     },
   })
 end)

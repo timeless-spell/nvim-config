@@ -216,7 +216,7 @@ later (function ()
     builtin.keymaps ({ layout_strategy = 'center', layout_config = { width = 0.7, height = 0.6 } })
   end, '[S]earch [K]eymaps')
 
-  map ('<leader>tl', function ()
+  map ('<leader>tL', function ()
     builtin.find_files ({
       cwd = vim.fs.joinpath (vim.fn.stdpath ('data'), 'site'),
       hidden = true,
@@ -227,4 +227,40 @@ later (function ()
   map ('<leader>tz', function ()
     require ('telescope').extensions.zoxide.list ()
   end, 'Zoxide [Telescope]')
+
+  vim.api.nvim_create_autocmd ('LspAttach', {
+    group = vim.api.nvim_create_augroup ('telescope-lsp-attach', { clear = true }),
+    callback = function (event)
+      map ('<leader>tld', function ()
+        builtin.lsp_definitions ({ layout_config = { width = 0.95, height = 0.95 } })
+      end, '[L]SP [D]efinitions', nil, event.buf)
+
+      map ('<leader>tlr', function ()
+        builtin.lsp_references ({
+          layout_strategy = 'vertical',
+          layout_config = { width = 0.95, height = 0.95 },
+        })
+      end, '[L]SP [R]eferences', nil, event.buf)
+
+      map ('<leader>tlI', function ()
+        builtin.lsp_implementations ({
+          layout_strategy = 'vertical',
+          layout_config = { width = 0.95, height = 0.95 },
+        })
+      end, '[L]SP [I]mplementation', nil, event.buf)
+
+      map ('<leader>tlD', builtin.lsp_type_definitions, '[L]SP Type [D]efinition', nil, event.buf)
+
+      map ('<leader>tlo', function ()
+        builtin.lsp_document_symbols ({ layout_config = { width = 0.95, height = 0.95 } })
+      end, '[L]SP [D]ocument Symbols', nil, event.buf)
+
+      map ('<leader>tlw', function ()
+        builtin.lsp_dynamic_workspace_symbols ({
+          layout_strategy = 'vertical',
+          layout_config = { width = 0.95, height = 0.95 },
+        })
+      end, '[L]SP [W]orkspace Symbols', nil, event.buf)
+    end,
+  })
 end)

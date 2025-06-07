@@ -1,5 +1,7 @@
 local modules = {
   -- Appearance
+  'nightfox',
+  'cyberdream',
   'lualine',
   'mini_icons',
   'mini_starter',

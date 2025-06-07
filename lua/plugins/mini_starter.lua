@@ -49,7 +49,7 @@ now (function ()
   }
 
   starter.setup ({
-    header = " _  _                 _\n| \\| | ___  ___ __ __(_) _ __  \n| .  |/ -_)/ _ \\\\ V /| || '  \\ \n|_|\\_|\\___|\\___/ \\_/ |_||_|_|_|\n",
+    header = ' _  _                 _\n| \\| | ___  ___ __ __(_) _ __  \n| .  |/ -_)/ _ \\\\ V /| || \'  \\ \n|_|\\_|\\___|\\___/ \\_/ |_||_|_|_|\n',
     items = items,
     content_hooks = {
       starter.gen_hook.adding_bullet ('󱁺 '),

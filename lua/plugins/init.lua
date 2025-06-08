@@ -16,6 +16,7 @@ local modules = {
   'flash',
   'spider',
   'yanky',
+  'substitute',
   'mini_ai',
   'mini_comment',
   'mini_surround',
@@ -31,7 +32,6 @@ local modules = {
   -- LSP
   'blink',
   'lazydev',
-  'jdtls',
   'lint',
   'conform',
   'dap',

@@ -1,11 +1,9 @@
-local add, now = MiniDeps.add, MiniDeps.now
+local add, later = MiniDeps.add, MiniDeps.later
 
-now (function ()
+later (function ()
   add ({
     source = 'EdenEast/nightfox.nvim',
   })
 
   require ('nightfox').setup ()
-
-  vim.cmd ('colorscheme duskfox')
 end)

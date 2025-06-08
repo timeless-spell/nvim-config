@@ -14,7 +14,7 @@ vim.lsp.config ('*', {
   capabilities = capabilities.blink,
 })
 
-vim.lsp.enable ({ 'lua_ls', 'harper_ls', 'lemminx' })
+vim.lsp.enable ({ 'lua_ls', 'harper_ls' })
 
 vim.api.nvim_create_autocmd ('LspAttach', {
   group = vim.api.nvim_create_augroup ('lsp-attach', { clear = true }),
